@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Login | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <!-- SkillPath AI Branding Area -->
+        <div class="auth-brand">
+            <div class="auth-brand-badge">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="auth-brand-name">SkillPath AI</span>
+        </div>
+
+        <!-- Heading & Subtitle -->
+        <h2 class="auth-title">Welcome Back</h2>
+        <p class="auth-subtitle">Continue your learning journey</p>
+
+        <!-- Clean Non-field Errors Alert -->
+        {% if form.non_field_errors %}
+            <div class="auth-alert-danger" role="alert">
+                <i class="fa-solid fa-triangle-exclamation auth-alert-icon"></i>
+                <div class="auth-alert-content">
+                    {% for error in form.non_field_errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+
+            <!-- Username Field -->
+            <div class="auth-field-group">
+                <label class="auth-label" for="{{ form.username.id_for_label }}">Username</label>
+                <div class="auth-input-wrap {% if form.username.errors %}has-error{% endif %}">
+                    <span class="auth-input-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    {{ form.username }}
+                </div>
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <div class="auth-error-msg">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Password Field -->
+            <div class="auth-field-group">
+                <label class="auth-label" for="{{ form.password.id_for_label }}">Password</label>
+                <div class="auth-input-wrap has-toggle {% if form.password.errors %}has-error{% endif %}">
+                    <span class="auth-input-icon">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+                    {{ form.password }}
+                    <button type="button" class="password-toggle-btn" data-target="{{ form.password.id_for_label }}" aria-label="Show password" tabindex="-1">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <div class="auth-error-msg">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <span>{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-auth-primary">
+                Login
+            </button>
+        </form>
+
+        <!-- Footer Link -->
+        <p class="auth-switch-prompt">
+            Don't have an account? <a href="{% url 'register' %}" class="auth-switch-link">Register</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

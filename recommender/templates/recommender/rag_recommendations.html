@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}AI-Retrieved Recommendations | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 900px;">
+
+    <h3 class="mb-1">AI-Retrieved Recommendations</h3>
+    <p class="text-muted mb-4">
+        Powered by semantic search (RAG) over our course knowledge base — matched by
+        meaning, not just exact skill names, for <strong>{{ target_role }}</strong>.
+    </p>
+        {% if explanation %}
+    <div class="dash-panel mb-4 explanation-box">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <h6 class="text-muted text-uppercase small mb-0">
+                <i class="fa-solid fa-comment-dots me-1"></i> Personalized Guidance
+            </h6>
+            {% if explanation.source == 'llm' %}
+                <span class="badge bg-primary-subtle text-primary">AI Generated</span>
+            {% else %}
+                <span class="badge bg-secondary-subtle text-secondary">Rule-Based</span>
+            {% endif %}
+        </div>
+        <p class="mb-2">{{ explanation.explanation_text }}</p>
+        <form method="post" action="{% url 'regenerate_explanation' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link btn-sm p-0">Regenerate</button>
+        </form>
+    </div>
+    {% endif %}
+    {% if not index_available %}
+        <div class="alert alert-warning">
+            <i class="fa-solid fa-triangle-exclamation me-1"></i>
+            The RAG index hasn't been built yet. Run
+            <code>python manage.py build_rag_index</code> and refresh this page.
+        </div>
+
+    {% elif not retrieved_courses %}
+        <div class="alert alert-secondary">
+            No relevant resources were retrieved. Try adding more skills or revisiting your target role.
+        </div>
+
+    {% else %}
+        {% if query_used %}
+        <div class="dash-panel mb-4 rag-query-box">
+            <h6 class="text-muted text-uppercase small mb-1"><i class="fa-solid fa-magnifying-glass me-1"></i> Retrieval Query</h6>
+            <p class="small mb-0 fst-italic">"{{ query_used }}"</p>
+        </div>
+        {% endif %}
+
+        <div class="row g-3">
+            {% for course in retrieved_courses %}
+            <div class="col-md-6">
+                <div class="course-card">
+                    <div class="d-flex justify-content-between align-items-start mb-1">
+                        <strong>{{ course.course_name }}</strong>
+                        {% if course.price_type == 'Free' %}
+                            <span class="badge bg-success">Free</span>
+                        {% else %}
+                            <span class="badge bg-warning text-dark">Paid</span>
+                        {% endif %}
+                    </div>
+                    <div class="text-muted small mb-2">
+                        {{ course.platform }} &middot; {{ course.level }} &middot; {{ course.duration }}
+                    </div>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span><i class="fa-solid fa-star text-warning"></i> {{ course.rating }}</span>
+                        <span class="relevance-badge">{{ course.score }}% relevant</span>
+                    </div>
+                    <a href="{% url 'course_detail' course.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="mt-4 d-flex gap-2">
+        <a href="{% url 'recommendations' %}" class="btn btn-outline-secondary btn-sm">Back to Filtered Recommendations</a>
+    </div>
+
+</div>
+{% endblock %}

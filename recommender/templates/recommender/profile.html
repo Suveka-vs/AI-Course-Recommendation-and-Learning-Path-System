@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Profile | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 800px;">
+
+    <h3 class="mb-4">My Profile</h3>
+
+    <div class="dash-panel mb-4">
+        <h6 class="text-muted text-uppercase small mb-2">Account</h6>
+        <p class="mb-1"><strong>Username:</strong> {{ user.username }}</p>
+        <p class="mb-1"><strong>Email:</strong> {{ user.email|default:"Not provided" }}</p>
+        <p class="mb-0"><strong>Joined:</strong> {{ user.date_joined|date:"d M Y" }}</p>
+    </div>
+
+    <div class="dash-panel mb-4">
+        <h6 class="text-muted text-uppercase small mb-2">Target Role</h6>
+        {% if target_role_obj %}
+            <p class="mb-1"><strong>{{ target_role_obj.role_name }}</strong></p>
+            {% if target_role_obj.predicted_role %}
+                <p class="text-muted small mb-0">
+                    AI suggested: {{ target_role_obj.predicted_role }} ({{ target_role_obj.predicted_confidence }}% confidence)
+                </p>
+            {% endif %}
+        {% else %}
+            <p class="text-muted mb-0">Not set yet. <a href="{% url 'target_role' %}">Set it now</a>.</p>
+        {% endif %}
+    </div>
+
+    <div class="dash-panel mb-4">
+        <h6 class="text-muted text-uppercase small mb-2">Skills ({{ current_skills.count }})</h6>
+        {% if current_skills %}
+            <div class="d-flex flex-wrap gap-2">
+                {% for skill in current_skills %}
+                    <span class="skill-badge skill-badge-outline">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">No skills added yet.</p>
+        {% endif %}
+    </div>
+
+    <div class="dash-panel mb-4">
+        <h6 class="text-muted text-uppercase small mb-2">Resumes Uploaded</h6>
+        {% if resumes %}
+            {% for resume in resumes %}
+                <p class="mb-1">{{ resume.original_filename }} — {{ resume.uploaded_at|date:"d M Y" }}</p>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted mb-0">None uploaded yet.</p>
+        {% endif %}
+    </div>
+
+    {% if progress_stats %}
+    <div class="dash-panel">
+        <h6 class="text-muted text-uppercase small mb-2">Learning Progress</h6>
+        <p class="mb-0">{{ progress_stats.progress_percentage }}% complete
+            ({{ progress_stats.completed }} of {{ progress_stats.total }} steps)</p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

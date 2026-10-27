@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Upload Resume | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+
+    <h3 class="mb-1">Upload Your Resume</h3>
+    <p class="text-muted mb-4">We accept PDF or DOCX files, up to 5 MB.</p>
+
+    <div class="dash-panel mb-4">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.file }}
+                {% if form.file.errors %}
+                    <div class="text-danger small mt-1">{{ form.file.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-upload me-1"></i> Upload &amp; Extract Text
+            </button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+        </form>
+    </div>
+
+    {% if resumes %}
+    <h5 class="mb-3">Your Uploaded Resumes</h5>
+    {% for resume in resumes %}
+        <div class="dash-panel mb-3">
+            <div class="d-flex justify-content-between align-items-start">
+                <div>
+                    <strong>{{ resume.original_filename }}</strong>
+                    <div class="text-muted small">Uploaded {{ resume.uploaded_at|date:"d M Y, H:i" }}</div>
+                </div>
+                {% if resume.extracted_text %}
+                    <span class="badge bg-success">Text Extracted</span>
+                {% else %}
+                    <span class="badge bg-secondary">No Text Found</span>
+                {% endif %}
+            </div>
+            {% if resume.extracted_text %}
+                <details class="mt-2">
+                    <summary class="small text-primary" style="cursor:pointer;">Preview extracted text</summary>
+                    <pre class="extracted-preview mt-2">{{ resume.extracted_text|truncatechars:1000 }}</pre>
+                </details>
+            {% endif %}
+        </div>
+    {% endfor %}
+    {% endif %}
+
+</div>
+{% endblock %}

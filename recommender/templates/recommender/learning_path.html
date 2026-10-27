@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Learning Path | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 800px;">
+
+    <div class="d-flex justify-content-between align-items-start mb-1">
+        <h3 class="mb-0">Your Learning Path</h3>
+        <form method="post" action="{% url 'regenerate_learning_path' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-secondary btn-sm">Regenerate</button>
+        </form>
+    </div>
+    <p class="text-muted mb-4">
+        A step-by-step plan toward becoming a <strong>{{ target_role }}</strong>.
+    </p>
+
+    <div class="dash-panel mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="text-muted text-uppercase small mb-0">Overall Progress</h6>
+            <strong>{{ progress_stats.progress_percentage }}%</strong>
+        </div>
+        <div class="progress" style="height: 12px;">
+            <div class="progress-bar match-bar" role="progressbar"
+                 style="width: {{ progress_stats.progress_percentage }}%;"
+                 aria-valuenow="{{ progress_stats.progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+            </div>
+        </div>
+        <p class="text-muted small mt-2 mb-0">
+            Completed: {{ progress_stats.completed }} &middot;
+            In Progress: {{ progress_stats.in_progress }} &middot;
+            Not Started: {{ progress_stats.not_started }}
+        </p>
+    </div>
+
+       <div class="path-timeline">
+        {% for step in step_data %}
+        {% with item=step.item attempt=step.latest_attempt %}
+        <div class="path-step {% if item.is_project_step %}path-step-project{% endif %}">
+            <div class="path-step-marker">{{ item.step_number }}</div>
+            <div class="path-step-content">
+                <div class="d-flex justify-content-between align-items-start">
+                    <strong>{{ item.title }}</strong>
+                    {% if item.status == 'completed' %}
+                        <span class="badge status-badge status-completed">Completed</span>
+                    {% elif attempt and not attempt.passed %}
+                        <span class="badge status-badge status-failed">Assessment Failed</span>
+                    {% else %}
+                        <span class="badge status-badge status-{{ item.status }}">{{ item.get_status_display }}</span>
+                    {% endif %}
+                </div>
+                <div class="text-muted small mt-1">
+                    Level: {{ item.level }} &middot; Estimated Duration: {{ item.estimated_duration }}
+                    {% if item.completed_at %}
+                        &middot; Completed {{ item.completed_at|date:"d M Y" }}
+                    {% endif %}
+                </div>
+                {% if item.is_project_step %}
+                    <div class="small text-primary mt-1">
+                        <i class="fa-solid fa-flag-checkered me-1"></i> Capstone project — apply everything you've learned.
+                    </div>
+                {% endif %}
+
+                <div class="mt-2 d-flex gap-2 align-items-center">
+                    {% if item.status == 'completed' %}
+                        <span class="text-success small">
+                            <i class="fa-solid fa-check-circle me-1"></i> Score: {{ attempt.percentage }}%
+                        </span>
+                        {% if attempt %}
+                            <a href="{% url 'assessment_result' attempt.id %}" class="btn btn-outline-success btn-sm">View Result</a>
+                        {% endif %}
+                    {% elif attempt and not attempt.passed %}
+                        <a href="{% url 'take_assessment' item.id %}" class="btn btn-danger btn-sm">Retry Assessment</a>
+                    {% else %}
+                        <a href="{% url 'take_assessment' item.id %}" class="btn btn-primary btn-sm">Take Assessment</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <a href="{% url 'progress' %}" class="btn btn-primary btn-sm">View Progress Dashboard</a>
+        <a href="{% url 'recommendations' %}" class="btn btn-outline-primary btn-sm">Back to Recommendations</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
+    </div>
+
+</div>
+{% endblock %}

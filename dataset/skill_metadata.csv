@@ -1,0 +1,59 @@
+skill_name,level,estimated_duration,order_weight
+HTML,Beginner,3 days,1
+CSS,Beginner,4 days,2
+Git,Beginner,3 days,3
+SQL,Beginner,1 week,4
+Python,Beginner,2 weeks,5
+Java,Beginner,2 weeks,5
+Object Oriented Programming,Beginner,1 week,6
+Data Structures and Algorithms,Intermediate,2 weeks,7
+Bootstrap,Beginner,3 days,8
+JavaScript,Beginner,2 weeks,9
+TypeScript,Intermediate,1 week,10
+React,Intermediate,2 weeks,11
+Angular,Intermediate,2 weeks,11
+Vue.js,Intermediate,2 weeks,11
+Node.js,Intermediate,1 week,12
+Django,Intermediate,2 weeks,13
+Django REST Framework,Intermediate,1 week,14
+Flask,Intermediate,1 week,13
+Spring Boot,Intermediate,2 weeks,13
+REST API,Intermediate,1 week,15
+GraphQL,Intermediate,1 week,15
+Pandas,Beginner,1 week,10
+NumPy,Beginner,4 days,10
+Statistics,Beginner,2 weeks,9
+Data Analysis,Intermediate,1 week,11
+Data Visualization,Intermediate,1 week,12
+Power BI,Intermediate,1 week,12
+Tableau,Intermediate,1 week,12
+Excel,Beginner,1 week,8
+Machine Learning,Advanced,3 weeks,16
+Scikit-learn,Intermediate,1 week,15
+Deep Learning,Advanced,3 weeks,17
+TensorFlow,Advanced,2 weeks,18
+PyTorch,Advanced,2 weeks,18
+Natural Language Processing,Advanced,2 weeks,19
+Docker,Intermediate,1 week,20
+Kubernetes,Advanced,2 weeks,21
+CI/CD,Intermediate,1 week,20
+Jenkins,Intermediate,1 week,20
+AWS,Intermediate,2 weeks,21
+Azure,Intermediate,2 weeks,21
+Google Cloud Platform,Intermediate,2 weeks,21
+Linux,Beginner,1 week,7
+Deployment,Intermediate,1 week,22
+System Design,Advanced,2 weeks,23
+Microservices,Advanced,2 weeks,23
+Unit Testing,Intermediate,4 days,16
+Agile,Beginner,3 days,17
+Jira,Beginner,2 days,17
+Postman,Beginner,2 days,15
+Selenium,Intermediate,1 week,17
+Hibernate,Intermediate,1 week,14
+Kotlin,Intermediate,2 weeks,10
+Swift,Intermediate,2 weeks,10
+Android Development,Advanced,3 weeks,18
+iOS Development,Advanced,3 weeks,18
+Flutter,Advanced,2 weeks,18
+React Native,Advanced,2 weeks,18

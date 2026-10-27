@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title %}Skill Gap Analysis | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 800px;">
+
+    <h3 class="mb-1">Skill Gap Analysis</h3>
+    <p class="text-muted mb-4">
+        Comparing your skills against what's typically required for
+        <strong>{{ target_role }}</strong>.
+    </p>
+
+    {% if not gap_result.available %}
+        <div class="alert alert-warning">
+            <i class="fa-solid fa-triangle-exclamation me-1"></i>
+            We don't have a predefined skill checklist for a custom role like
+            "<strong>{{ target_role }}</strong>" yet. Skill gap analysis currently
+            works for the predefined roles (Python Developer, Data Scientist, DevOps
+            Engineer, etc.). Course recommendations will still work using your
+            current skills in a later step.
+        </div>
+        <a href="{% url 'target_role' %}" class="btn btn-outline-primary btn-sm">Choose a Predefined Role Instead</a>
+
+    {% else %}
+        <div class="row g-4 mb-4">
+            <div class="col-md-7">
+                <div class="dash-panel h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="text-muted text-uppercase small mb-0">Skill Match</h6>
+                        <strong>{{ gap_result.match_percentage }}%</strong>
+                    </div>
+                    <div class="progress" style="height: 12px;">
+                        <div class="progress-bar match-bar" role="progressbar"
+                             style="width: {{ gap_result.match_percentage }}%;"
+                             aria-valuenow="{{ gap_result.match_percentage }}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                    <p class="text-muted small mt-2 mb-0">
+                        {{ gap_result.matched_count }} of {{ gap_result.required_count }} required skills matched.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="dash-panel h-100">
+                    <h6 class="text-muted text-uppercase small mb-2">Matched vs Missing</h6>
+                    <canvas id="gapChart" height="140"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            new Chart(document.getElementById('gapChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Matched', 'Missing'],
+                    datasets: [{
+                        data: [{{ gap_result.matched_count }}, {{ gap_result.missing|length }}],
+                        backgroundColor: ['#28a745', '#dc3545'],
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                }
+            });
+        </script>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="text-muted text-uppercase small mb-0">
+            Skill Match
+        </h6>
+
+        <strong>
+            {{ gap_result.match_percentage }}%
+        </strong>
+    </div>
+
+    <div class="progress" style="height: 12px; border-radius: 10px;">
+
+        <div class="progress-bar match-bar"
+             role="progressbar"
+             style="width: {{ gap_result.match_percentage }}%"
+             aria-valuenow="{{ gap_result.match_percentage }}"
+             aria-valuemin="0"
+             aria-valuemax="100">
+        </div>
+
+    </div>
+
+    <p class="text-muted small mt-2 mb-0">
+        {{ gap_result.matched_count }}
+        of
+        {{ gap_result.required_count }}
+        required skills matched.
+    </p>
+
+</div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="dash-panel h-100">
+                    <h6 class="text-muted text-uppercase small mb-3">
+                        <i class="fa-solid fa-check-circle text-success me-1"></i> Matched Skills
+                    </h6>
+                    {% if gap_result.matched %}
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in gap_result.matched %}
+                                <span class="skill-badge skill-badge-matched">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted small mb-0">No matches yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="dash-panel h-100">
+                    <h6 class="text-muted text-uppercase small mb-3">
+                        <i class="fa-solid fa-circle-xmark text-danger me-1"></i> Missing Skills
+                    </h6>
+                    {% if gap_result.missing %}
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for skill in gap_result.missing %}
+                                <span class="skill-badge skill-badge-missing">{{ skill }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted small mb-0">No gaps — great job!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+            <a href="{% url 'skill_analysis' %}" class="btn btn-outline-primary btn-sm">Edit My Skills</a>
+            <a href="{% url 'target_role' %}" class="btn btn-outline-primary btn-sm">Change Target Role</a>
+            <a href="{% url 'recommendations' %}" class="btn btn-primary btn-sm">See Course Recommendations</a>
+        </div>
+
+    {% endif %}
+
+</div>
+{% endblock %}

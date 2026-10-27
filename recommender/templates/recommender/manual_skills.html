@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Enter Skills | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+
+    <h3 class="mb-1">Enter Your Skills</h3>
+    <p class="text-muted mb-4">List your skills separated by commas. We'll normalize and match them automatically.</p>
+
+    <div class="dash-panel">
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.skills_text }}
+                <div class="form-text">{{ form.skills_text.help_text }}</div>
+                {% if form.skills_text.errors %}
+                    <div class="text-danger small mt-1">{{ form.skills_text.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-plus me-1"></i> Add Skills
+            </button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

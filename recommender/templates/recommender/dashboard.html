@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="dash-header mb-4">
+        <h2 class="mb-1">Welcome, {{ user.username }}</h2>
+        <p class="text-muted mb-0">Here's where your career journey begins.</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <a href="{% url 'target_role' %}" class="text-decoration-none">
+                <div class="dash-card">
+                    <i class="fa-solid fa-bullseye dash-icon"></i>
+                    <h6>Target Role</h6>
+                    <p class="dash-value">
+                        {% if target_role %}{{ target_role }}{% else %}Set your role &rarr;{% endif %}
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'skill_gap' %}" class="text-decoration-none">
+                <div class="dash-card">
+                    <i class="fa-solid fa-chart-line dash-icon"></i>
+                    <h6>Skill Match</h6>
+                    <p class="dash-value">{{ skill_match }}%</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'progress' %}" class="text-decoration-none">
+                <div class="dash-card">
+                    <i class="fa-solid fa-list-check dash-icon"></i>
+                    <h6>Learning Progress</h6>
+                    <p class="dash-value">
+                        {% if progress_stats %}{{ progress_stats.progress_percentage }}%{% else %}Not started{% endif %}
+                    </p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    {% if progress_stats and progress_stats.total > 0 %}
+    <div class="row g-4 mt-1">
+        <div class="col-md-6">
+            <div class="dash-panel">
+                <h6 class="text-muted text-uppercase small mb-3">Learning Progress Breakdown</h6>
+                <canvas id="progressChart" height="180"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="dash-panel">
+                <h6 class="text-muted text-uppercase small mb-3">Skill Match</h6>
+                <canvas id="skillMatchChart" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if latest_resume %}
+    <div class="alert alert-info mt-4 mb-0">
+        <i class="fa-solid fa-circle-check me-1"></i>
+        Latest resume: <strong>{{ latest_resume.original_filename }}</strong>
+        — <a href="{% url 'upload_resume' %}">view or upload another</a>
+    </div>
+    {% endif %}
+
+    {% if current_skills %}
+    <div class="dash-panel mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="text-muted text-uppercase small mb-0">Current Skills ({{ current_skills.count }})</h6>
+            <a href="{% url 'skill_analysis' %}" class="small">View full analysis &rarr;</a>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            {% for skill in current_skills|slice:":12" %}
+                <span class="skill-badge skill-badge-outline">{{ skill.name }}</span>
+            {% endfor %}
+            {% if current_skills.count > 12 %}
+                <span class="skill-badge skill-badge-outline">+{{ current_skills.count|add:"-12" }} more</span>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row g-4 mt-1">
+        <div class="col-md-6">
+            <div class="dash-panel">
+                <h5><i class="fa-solid fa-file-arrow-up me-2"></i>Get Started</h5>
+                <p class="text-muted">Upload your resume or enter your skills manually to begin your analysis.</p>
+                <a href="{% url 'upload_resume' %}" class="btn btn-primary btn-sm">Upload Resume</a>
+                <a href="{% url 'manual_skills' %}" class="btn btn-outline-primary btn-sm">Enter Skills</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="dash-panel">
+                <h5><i class="fa-solid fa-book-open me-2"></i>Recommended Courses</h5>
+                <p class="text-muted">See free and paid courses matched to your skill gaps.</p>
+                <a href="{% url 'recommendations' %}" class="btn btn-primary btn-sm">View Recommendations</a>
+                <a href="{% url 'rag_recommendations' %}" class="btn btn-outline-primary btn-sm">AI-Retrieved (RAG)</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mt-1">
+        <div class="col-md-12">
+            <div class="dash-panel">
+                <h5><i class="fa-solid fa-route me-2"></i>Your Learning Path</h5>
+                {% if progress_stats %}
+                    <p class="text-muted">
+                        {{ progress_stats.completed }} completed, {{ progress_stats.in_progress }} in progress,
+                        {{ progress_stats.not_started }} remaining.
+                    </p>
+                {% else %}
+                    <p class="text-muted">A step-by-step plan to close your skill gaps and reach your target role.</p>
+                {% endif %}
+                <a href="{% url 'learning_path' %}" class="btn btn-primary btn-sm">View Learning Path</a>
+                {% if progress_stats %}
+                    <a href="{% url 'progress' %}" class="btn btn-outline-primary btn-sm">View Progress</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% if progress_stats and progress_stats.total > 0 %}
+<script>
+    new Chart(document.getElementById('progressChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Completed', 'In Progress', 'Not Started'],
+            datasets: [{
+                data: [
+                    {{ progress_stats.completed }},
+                    {{ progress_stats.in_progress }},
+                    {{ progress_stats.not_started }}
+                ],
+                backgroundColor: ['#28a745', '#f0ad4e', '#e2e4f0'],
+                borderWidth: 0,
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'bottom' } },
+            cutout: '65%',
+        }
+    });
+
+    new Chart(document.getElementById('skillMatchChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Matched', 'Remaining'],
+            datasets: [{
+                data: [{{ skill_match }}, {{ skill_match_remaining }}],
+                backgroundColor: ['#6c63ff', '#e2e4f0'],
+                borderWidth: 0,
+            }]
+        },
+        options: {
+            plugins: { legend: { position: 'bottom' } },
+            cutout: '65%',
+        }
+    });
+</script>
+{% endif %}
+{% endblock %}

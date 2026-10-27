@@ -1,0 +1,36 @@
+course_name,platform,skill,level,price_type,rating,duration,url,description
+JavaScript Algorithms and Data Structures,freeCodeCamp,JavaScript,Beginner,Free,4.8,40 hours,https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/,Hands-on free certification covering core JavaScript fundamentals and algorithms.
+JavaScript Guide,MDN Web Docs,JavaScript,Beginner,Free,4.7,10 hours,https://developer.mozilla.org/en-US/docs/Web/JavaScript,Official Mozilla documentation and guide for learning JavaScript from the ground up.
+The Complete JavaScript Course,Udemy,JavaScript,Intermediate,Paid,4.7,69 hours,https://www.udemy.com/,Sample listing — a popular in-depth JavaScript course. Replace with the exact Udemy course URL before submission.
+Django REST Framework Quickstart,Official Docs,REST API,Intermediate,Free,4.6,4 hours,https://www.django-rest-framework.org/tutorial/quickstart/,Official DRF tutorial for building REST APIs with Django.
+REST APIs with Flask and Python,Udemy,REST API,Intermediate,Paid,4.6,18 hours,https://www.udemy.com/,Sample listing — REST API design and implementation course. Replace with the exact Udemy course URL before submission.
+Docker Get Started Guide,Docker Docs,Docker,Beginner,Free,4.7,6 hours,https://docs.docker.com/get-started/,Official Docker documentation walking through containers, images, and Dockerfiles.
+Docker Mastery,Udemy,Docker,Intermediate,Paid,4.7,19 hours,https://www.udemy.com/,Sample listing — complete Docker and container course. Replace with the exact Udemy course URL before submission.
+Kubernetes Basics Tutorial,Kubernetes Docs,Kubernetes,Intermediate,Free,4.6,5 hours,https://kubernetes.io/docs/tutorials/kubernetes-basics/,Official interactive tutorial covering Kubernetes clusters, pods, and deployments.
+AWS Cloud Practitioner Essentials,AWS Skill Builder,AWS,Beginner,Free,4.6,6 hours,https://skillbuilder.aws/,Official free AWS training covering core cloud concepts and services.
+AWS Certified Solutions Architect,Udemy,AWS,Intermediate,Paid,4.7,27 hours,https://www.udemy.com/,Sample listing — AWS certification prep course. Replace with the exact Udemy course URL before submission.
+Deploying Django Applications,Django Docs,Deployment,Intermediate,Free,4.4,3 hours,https://docs.djangoproject.com/en/stable/howto/deployment/,Official Django documentation on deploying applications to production.
+Deployment with Docker and CI/CD,Udemy,Deployment,Intermediate,Paid,4.5,15 hours,https://www.udemy.com/,Sample listing — deployment and CI/CD pipeline course. Replace with the exact Udemy course URL before submission.
+React – Official Tutorial,React Docs,React,Beginner,Free,4.8,8 hours,https://react.dev/learn,Official React documentation and interactive quick-start tutorial.
+React – The Complete Guide,Udemy,React,Intermediate,Paid,4.7,49 hours,https://www.udemy.com/,Sample listing — comprehensive React course. Replace with the exact Udemy course URL before submission.
+Pro Git Book,Git Docs,Git,Beginner,Free,4.7,6 hours,https://git-scm.com/book/en/v2,Free official Git book covering version control from basics to advanced workflows.
+Git Complete,Udemy,Git,Beginner,Paid,4.6,6 hours,https://www.udemy.com/,Sample listing — Git and GitHub course for beginners. Replace with the exact Udemy course URL before submission.
+SQL Tutorial,W3Schools,SQL,Beginner,Free,4.5,10 hours,https://www.w3schools.com/sql/,Free interactive SQL tutorial covering queries, joins, and database design basics.
+PostgreSQL Tutorial,PostgreSQLTutorial.com,SQL,Intermediate,Free,4.5,8 hours,https://www.postgresqltutorial.com/,Free structured tutorial series for learning PostgreSQL in depth.
+Data Analysis with Python,Kaggle Learn,Data Analysis,Beginner,Free,4.7,5 hours,https://www.kaggle.com/learn,Free hands-on micro-courses covering pandas, data cleaning, and analysis.
+Power BI Fundamentals,Microsoft Learn,Power BI,Beginner,Free,4.6,6 hours,https://learn.microsoft.com/en-us/training/powerplatform/power-bi,Official Microsoft Learn path for Power BI fundamentals and dashboards.
+Machine Learning Specialization,Coursera,Machine Learning,Intermediate,Paid,4.9,60 hours,https://www.coursera.org/specializations/machine-learning-introduction,Andrew Ng's widely-used Machine Learning specialization covering core ML concepts.
+TensorFlow Tutorials,TensorFlow Docs,TensorFlow,Intermediate,Free,4.6,10 hours,https://www.tensorflow.org/tutorials,Official TensorFlow tutorials for building and training deep learning models.
+PyTorch Tutorials,PyTorch Docs,PyTorch,Intermediate,Free,4.6,10 hours,https://pytorch.org/tutorials/,Official PyTorch tutorials covering tensors, models, and training loops.
+Deep Learning Specialization,Coursera,Deep Learning,Advanced,Paid,4.8,120 hours,https://www.coursera.org/specializations/deep-learning,Comprehensive deep learning specialization covering neural networks and architectures.
+Spring Boot Guides,Spring Docs,Spring Boot,Intermediate,Free,4.6,8 hours,https://spring.io/guides,Official Spring guides for building applications with Spring Boot.
+Java Programming Masterclass,Udemy,Java,Beginner,Paid,4.6,80 hours,https://www.udemy.com/,Sample listing — comprehensive Java course for beginners to advanced. Replace with the exact Udemy course URL before submission.
+Java Tutorials,Oracle Docs,Java,Beginner,Free,4.4,15 hours,https://docs.oracle.com/javase/tutorial/,Official Oracle Java tutorials covering language fundamentals.
+CI/CD with Jenkins,Jenkins Docs,CI/CD,Intermediate,Free,4.4,5 hours,https://www.jenkins.io/doc/tutorials/,Official Jenkins tutorials for setting up continuous integration pipelines.
+Linux Command Line Basics,freeCodeCamp,Linux,Beginner,Free,4.6,5 hours,https://www.freecodecamp.org/news/command-line-for-beginners/,Free beginner guide to using the Linux command line and terminal.
+HTML and CSS Responsive Web Design,freeCodeCamp,CSS,Beginner,Free,4.8,15 hours,https://www.freecodecamp.org/learn/2022/responsive-web-design/,Free certification covering HTML, CSS, and responsive design fundamentals.
+System Design Primer,GitHub,System Design,Advanced,Free,4.7,10 hours,https://github.com/donnemartin/system-design-primer,Popular free open-source guide to learning system design concepts.
+Object Oriented Programming in Python,Great Learning,Object Oriented Programming,Beginner,Free,4.4,3 hours,https://www.mygreatlearning.com/academy/learn-for-free/courses/object-oriented-programming,Free short course covering OOP concepts using Python.
+Data Structures and Algorithms,freeCodeCamp,Data Structures and Algorithms,Intermediate,Free,4.7,25 hours,https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/,Free hands-on course covering core data structures and algorithms using JavaScript.
+Unit Testing in Python,Real Python,Unit Testing,Beginner,Free,4.5,3 hours,https://realpython.com/python-testing/,Free in-depth guide to writing unit tests in Python using unittest and pytest.
+Bootstrap 5 Crash Course,YouTube,Bootstrap,Beginner,Free,4.5,2 hours,https://getbootstrap.com/docs/5.3/getting-started/introduction/,Official Bootstrap documentation and getting-started guide.

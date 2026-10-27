@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Target Role | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+
+    <h3 class="mb-1">Choose Your Target Job Role</h3>
+    <p class="text-muted mb-4">This helps us analyze your skill gaps and recommend the right courses.</p>
+
+    {% if prediction %}
+    <div class="dash-panel mb-4 predicted-role-box">
+        <h6 class="text-muted text-uppercase small mb-2"><i class="fa-solid fa-robot me-1"></i> AI Predicted Role</h6>
+        <p class="mb-1"><strong>{{ prediction.role }}</strong></p>
+        <p class="text-muted small mb-0">Confidence: {{ prediction.confidence }}%</p>
+    </div>
+    {% elif user_skills %}
+    <div class="alert alert-secondary small mb-4">
+        Role prediction isn't available yet — the ML model hasn't been trained.
+        Run <code>python manage.py train_role_model</code> to enable it.
+    </div>
+    {% else %}
+    <div class="alert alert-secondary small mb-4">
+        Add some skills first (resume upload or manual entry) to get an AI-predicted role suggestion.
+    </div>
+    {% endif %}
+
+    <div class="dash-panel">
+        <form method="post" id="roleForm">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">{{ form.role_choice.label }}</label>
+                {{ form.role_choice }}
+                {% if form.role_choice.errors %}
+                    <div class="text-danger small mt-1">{{ form.role_choice.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <div class="mb-3" id="customRoleField">
+                <label class="form-label">{{ form.custom_role.label }}</label>
+                {{ form.custom_role }}
+                {% if form.custom_role.errors %}
+                    <div class="text-danger small mt-1">{{ form.custom_role.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-primary">Save Target Role &amp; Continue</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Back to Dashboard</a>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    // Show/hide the custom role text field based on dropdown selection
+    const roleSelect = document.getElementById('id_role_choice');
+    const customField = document.getElementById('customRoleField');
+
+    function toggleCustomField() {
+        customField.style.display = (roleSelect.value === 'other') ? 'block' : 'none';
+    }
+
+    roleSelect.addEventListener('change', toggleCustomField);
+    toggleCustomField();
+</script>
+{% endblock %}

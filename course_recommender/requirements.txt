@@ -1,0 +1,10 @@
+Django
+PyMuPDF
+python-docx
+scikit-learn
+joblib
+pandas
+sentence-transformers
+faiss-cpu
+google-generativeai
+django-allauth

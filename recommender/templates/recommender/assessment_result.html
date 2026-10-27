@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Assessment Result | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 600px;">
+
+    <div class="dash-panel text-center">
+        <h6 class="text-muted text-uppercase small mb-1">Assessment Result</h6>
+        <h3 class="mb-3">{{ attempt.skill_name }}</h3>
+
+        <p class="mb-1">Score: <strong>{{ attempt.score }} / {{ attempt.total_questions }}</strong></p>
+        <p class="mb-3">Percentage: <strong>{{ attempt.percentage }}%</strong></p>
+
+        {% if attempt.passed %}
+            <div class="alert alert-success">
+                <i class="fa-solid fa-circle-check me-1"></i> <strong>PASSED</strong>
+            </div>
+            <p class="text-muted">You have successfully completed this skill.</p>
+            <a href="{% url 'learning_path' %}" class="btn btn-primary">Continue Learning Path</a>
+        {% else %}
+            <div class="alert alert-danger">
+                <i class="fa-solid fa-circle-xmark me-1"></i> <strong>FAILED</strong>
+            </div>
+            <p class="text-muted">You need at least 70% to complete this skill.</p>
+            <a href="{% url 'take_assessment' attempt.learning_path_item.id %}" class="btn btn-primary">Retry Assessment</a>
+            <a href="{% url 'learning_path' %}" class="btn btn-outline-secondary">Review Skill</a>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

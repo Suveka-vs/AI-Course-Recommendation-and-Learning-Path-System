@@ -1,0 +1,10 @@
+role_name,required_skills
+Python Developer,Python|Django|SQL|Git|REST API|Object Oriented Programming|Data Structures and Algorithms|Unit Testing
+Python Full Stack Developer,Python|Django|SQL|HTML|CSS|JavaScript|React|REST API|Git|Docker|Deployment
+Web Developer,HTML|CSS|JavaScript|React|Bootstrap|Git|REST API
+Data Analyst,SQL|Excel|Python|Pandas|Data Analysis|Data Visualization|Power BI|Statistics
+Data Scientist,Python|Pandas|NumPy|Scikit-learn|Machine Learning|Statistics|SQL|Data Visualization
+Machine Learning Engineer,Python|Machine Learning|Deep Learning|TensorFlow|PyTorch|Scikit-learn|Docker|Git
+Java Developer,Java|Spring Boot|Hibernate|SQL|Git|Object Oriented Programming|REST API|Data Structures and Algorithms
+DevOps Engineer,Docker|Kubernetes|Jenkins|CI/CD|AWS|Linux|Git|Deployment
+Software Developer,Java|Python|C++|Object Oriented Programming|Data Structures and Algorithms|Git|System Design

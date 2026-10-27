@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ course.course_name }} | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+
+    <div class="dash-panel">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <h4 class="mb-0">{{ course.course_name }}</h4>
+            {% if course.price_type == 'Free' %}
+                <span class="badge bg-success">Free</span>
+            {% else %}
+                <span class="badge bg-warning text-dark">Paid</span>
+            {% endif %}
+        </div>
+
+        <p class="text-muted mb-3">
+            {{ course.platform }} &middot; Skill: {{ course.skill }} &middot; Level: {{ course.level }}
+        </p>
+
+        <p class="mb-3"><i class="fa-solid fa-star text-warning"></i> {{ course.rating }} rating
+            &nbsp;|&nbsp; <i class="fa-solid fa-clock"></i> {{ course.duration }}</p>
+
+        <p>{{ course.description }}</p>
+
+        <a href="{{ course.url }}" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Go to Course
+        </a>
+        <a href="{% url 'recommendations' %}" class="btn btn-outline-secondary">Back to Recommendations</a>
+    </div>
+
+</div>
+{% endblock %}

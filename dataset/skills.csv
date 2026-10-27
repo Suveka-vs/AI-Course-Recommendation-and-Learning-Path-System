@@ -1,0 +1,78 @@
+skill_name,category,aliases
+Python,Programming Language,py
+Java,Programming Language,
+JavaScript,Programming Language,js|ecmascript
+TypeScript,Programming Language,ts
+C++,Programming Language,cpp
+C#,Programming Language,csharp
+PHP,Programming Language,
+Go,Programming Language,golang
+Ruby,Programming Language,
+R,Programming Language,
+SQL,Database,structured query language
+Django,Web Framework,
+Django REST Framework,Web Framework,drf|django rest framework
+Flask,Web Framework,
+FastAPI,Web Framework,
+Spring Boot,Web Framework,spring
+React,Web Framework,react.js|reactjs
+Angular,Web Framework,angular.js|angularjs
+Vue.js,Web Framework,vue|vuejs
+Node.js,Web Framework,nodejs|node
+Express.js,Web Framework,express|expressjs
+HTML,Web Fundamentals,html5
+CSS,Web Fundamentals,css3
+Bootstrap,Web Fundamentals,
+Tailwind CSS,Web Fundamentals,tailwind
+REST API,Web Fundamentals,rest apis|restful api|api development
+GraphQL,Web Fundamentals,
+MySQL,Database,
+PostgreSQL,Database,postgres
+MongoDB,Database,mongo
+SQLite,Database,
+Oracle Database,Database,oracle db
+Redis,Database,
+Git,Tools,
+GitHub,Tools,
+GitLab,Tools,
+Docker,DevOps,
+Kubernetes,DevOps,k8s
+Jenkins,DevOps,
+CI/CD,DevOps,continuous integration|continuous deployment
+Linux,Tools,
+AWS,Cloud,amazon web services
+Azure,Cloud,microsoft azure
+Google Cloud Platform,Cloud,gcp|google cloud
+Deployment,DevOps,
+NumPy,Data Science,
+Pandas,Data Science,
+Matplotlib,Data Science,
+Scikit-learn,Machine Learning,sklearn
+TensorFlow,Machine Learning,
+PyTorch,Machine Learning,
+Machine Learning,Machine Learning,ml
+Deep Learning,Machine Learning,dl
+Natural Language Processing,Machine Learning,nlp
+Data Analysis,Data Science,
+Data Visualization,Data Science,
+Power BI,Data Science,powerbi
+Tableau,Data Science,
+Excel,Data Science,ms excel|microsoft excel
+Statistics,Data Science,
+Java Spring,Web Framework,
+Hibernate,Web Framework,
+Kotlin,Programming Language,
+Swift,Programming Language,
+Android Development,Mobile Development,android
+iOS Development,Mobile Development,ios
+Flutter,Mobile Development,
+React Native,Mobile Development,
+Agile,Other,agile methodology|scrum
+Jira,Tools,
+Postman,Tools,
+Unit Testing,Other,testing|unit tests
+Selenium,Other,
+Object Oriented Programming,Programming Fundamentals,oop
+Data Structures and Algorithms,Programming Fundamentals,dsa|data structures|algorithms
+System Design,Programming Fundamentals,
+Microservices,Web Fundamentals,

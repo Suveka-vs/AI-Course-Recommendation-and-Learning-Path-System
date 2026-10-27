@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Course Recommendations | SkillPath AI{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 900px;">
+
+    <h3 class="mb-1">Recommended Courses</h3>
+    <p class="text-muted mb-4">
+        Curated for your gaps toward <strong>{{ target_role }}</strong>.
+    </p>
+
+    {% if not gap_result.available %}
+        <div class="alert alert-warning">
+            We don't have a predefined skill checklist for this custom role yet,
+            so we can't target specific gaps. Set a predefined target role to get
+            personalized course recommendations.
+        </div>
+        <a href="{% url 'target_role' %}" class="btn btn-outline-primary btn-sm">Choose a Predefined Role</a>
+
+    {% elif not gap_result.missing %}
+        <div class="alert alert-success">
+            <i class="fa-solid fa-circle-check me-1"></i>
+            Great news — you already match all required skills for this role! No gaps to recommend courses for.
+        </div>
+
+    {% elif not grouped_courses %}
+        <div class="alert alert-secondary">
+            We found skill gaps, but no matching courses in our dataset yet for: {{ gap_result.missing|join:", " }}.
+        </div>
+
+    {% else %}
+        {% for skill, courses in grouped_courses.items %}
+        <div class="dash-panel mb-4">
+            <h6 class="text-muted text-uppercase small mb-3">
+                <i class="fa-solid fa-puzzle-piece me-1"></i> {{ skill }}
+            </h6>
+            <div class="row g-3">
+                {% for course in courses %}
+                <div class="col-md-6">
+                    <div class="course-card">
+                        <div class="d-flex justify-content-between align-items-start mb-1">
+                            <strong>{{ course.course_name }}</strong>
+                            {% if course.price_type == 'Free' %}
+                                <span class="badge bg-success">Free</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">Paid</span>
+                            {% endif %}
+                        </div>
+                        <div class="text-muted small mb-2">
+                            {{ course.platform }} &middot; {{ course.level }} &middot; {{ course.duration }}
+                        </div>
+                        <div class="mb-2">
+                            <i class="fa-solid fa-star text-warning"></i> {{ course.rating }}
+                        </div>
+                        <a href="{% url 'course_detail' course.id %}" class="btn btn-outline-primary btn-sm">View Details</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="mt-4 d-flex gap-2">
+            <a href="{% url 'rag_recommendations' %}" class="btn btn-outline-primary btn-sm">
+                <i class="fa-solid fa-wand-magic-sparkles me-1"></i> See AI-Retrieved Recommendations
+            </a>
+                      <a href="{% url 'learning_path' %}" class="btn btn-primary btn-sm">View My Learning Path</a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}
